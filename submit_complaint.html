@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Submit Complaint | R. C. Patel College</title>
+
+    <!-- Bootstrap -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+        rel="stylesheet"
+    >
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+
+    <!-- Dashboard CSS -->
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/dashboard.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- ==================================================
+     NAVBAR
+=================================================== -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+
+    <div class="container-fluid px-4">
+
+        <a
+            class="navbar-brand fw-bold"
+            href="{{ url_for('student_dashboard') }}"
+        >
+
+            <span class="me-2">RC</span>
+
+            Smart Grievance Portal
+
+        </a>
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#studentNavbar"
+        >
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="studentNavbar"
+        >
+
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('student_dashboard') }}"
+                    >
+
+                        <i class="bi bi-speedometer2"></i>
+                        Dashboard
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link active"
+                        href="{{ url_for('submit_complaint') }}"
+                    >
+
+                        <i class="bi bi-plus-circle"></i>
+                        Submit Complaint
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        href="{{ url_for('my_complaints') }}"
+                    >
+
+                        <i class="bi bi-list-check"></i>
+                        My Complaints
+
+                    </a>
+
+                </li>
+
+
+                <li class="nav-item dropdown ms-lg-3">
+
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                    >
+
+                        <i class="bi bi-person-circle"></i>
+
+                        {{ session.get('name', 'Student') }}
+
+                    </a>
+
+
+                    <ul class="dropdown-menu dropdown-menu-end">
+
+                        <li>
+
+                            <span class="dropdown-item-text">
+
+                                <strong>
+                                    {{ session.get('name', 'Student') }}
+                                </strong>
+
+                                <small class="d-block text-muted">
+                                    {{ session.get('email', '') }}
+                                </small>
+
+                            </span>
+
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+
+                            <a
+                                class="dropdown-item text-danger"
+                                href="{{ url_for('logout') }}"
+                                onclick="return confirmLogout()"
+                            >
+
+                                <i class="bi bi-box-arrow-right"></i>
+
+                                Logout
+
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ==================================================
+     MAIN CONTENT
+=================================================== -->
+
+<main class="dashboard-container">
+
+    <div class="container py-4">
+
+
+        <!-- ==================================================
+             PAGE HEADER
+        =================================================== -->
+
+        <div class="mb-4">
+
+            <a
+                href="{{ url_for('student_dashboard') }}"
+                class="text-decoration-none"
+            >
+
+                <i class="bi bi-arrow-left"></i>
+
+                Back to Dashboard
+
+            </a>
+
+
+            <h2 class="fw-bold mt-3 mb-1">
+
+                Submit a Complaint
+
+            </h2>
+
+            <p class="text-muted">
+
+                Clearly describe your issue so that the
+                appropriate department can take action.
+
+            </p>
+
+        </div>
+
+
+        <!-- ==================================================
+             FLASH MESSAGES
+        =================================================== -->
+
+        {% with messages =
+        get_flashed_messages(with_categories=true) %}
+
+            {% if messages %}
+
+                {% for category, message in messages %}
+
+                    <div
+                        class="alert alert-{{ category }}
+                               alert-dismissible fade show"
+                        role="alert"
+                    >
+
+                        <i class="bi bi-info-circle me-2"></i>
+
+                        {{ message }}
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                        ></button>
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        {% endwith %}
+
+
+        <div class="row g-4">
+
+
+            <!-- ==================================================
+                 COMPLAINT FORM
+            =================================================== -->
+
+            <div class="col-lg-8">
+
+                <div class="dashboard-card">
+
+                    <div class="card-header-custom mb-4">
+
+                        <div>
+
+                            <h5 class="fw-bold mb-1">
+
+                                <i class="bi bi-pencil-square
+                                          text-primary"></i>
+
+                                Complaint Details
+
+                            </h5>
+
+                            <p class="text-muted mb-0">
+
+                                Enter the details of your complaint
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <form
+                        action="{{ url_for('submit_complaint') }}"
+                        method="POST"
+                        enctype="multipart/form-data"
+                        onsubmit="return validateComplaintForm()"
+                    >
+
+
+                        <!-- ======================================
+                             TITLE
+                        ======================================= -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="title"
+                                class="form-label fw-semibold"
+                            >
+
+                                Complaint Title
+
+                                <span class="text-danger">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="title"
+                                name="title"
+                                maxlength="200"
+                                placeholder="Example: Computer lab computers are not working"
+                                required
+                            >
+
+                            <div class="form-text">
+
+                                Use a short and clear title.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ======================================
+                             CATEGORY
+                        ======================================= -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="category"
+                                class="form-label fw-semibold"
+                            >
+
+                                Complaint Category
+
+                                <span class="text-danger">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="category"
+                                name="category"
+                                required
+                            >
+
+                                <option value="">
+                                    Select complaint category
+                                </option>
+
+                                <option value="Infrastructure">
+                                    Infrastructure
+                                </option>
+
+                                <option value="Computer/Lab">
+                                    Computer / Laboratory
+                                </option>
+
+                                <option value="Academic">
+                                    Academic
+                                </option>
+
+                                <option value="Faculty">
+                                    Faculty Related
+                                </option>
+
+                                <option value="Transportation">
+                                    Transportation
+                                </option>
+
+                                <option value="Canteen">
+                                    Canteen
+                                </option>
+
+                                <option value="Hostel">
+                                    Hostel
+                                </option>
+
+                                <option value="Library">
+                                    Library
+                                </option>
+
+                                <option value="Fees/Accounts">
+                                    Fees / Accounts
+                                </option>
+
+                                <option value="Cleanliness">
+                                    Cleanliness
+                                </option>
+
+                                <option value="Security">
+                                    Security
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- ======================================
+                             PRIORITY
+                        ======================================= -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="priority"
+                                class="form-label fw-semibold"
+                            >
+
+                                Priority
+
+                                <span class="text-danger">
+                                    *
+                                </span>
+
+                            </label>
+
+                            <select
+                                class="form-select"
+                                id="priority"
+                                name="priority"
+                                required
+                            >
+
+                                <option value="Low">
+                                    Low
+                                </option>
+
+                                <option
+                                    value="Medium"
+                                    selected
+                                >
+                                    Medium
+                                </option>
+
+                                <option value="High">
+                                    High
+                                </option>
+
+                                <option value="Critical">
+                                    Critical
+                                </option>
+
+                            </select>
+
+
+                            <div class="form-text">
+
+                                <strong>Low:</strong>
+                                General issue
+
+                                <br>
+
+                                <strong>Medium:</strong>
+                                Issue requiring attention
+
+                                <br>
+
+                                <strong>High:</strong>
+                                Important issue affecting students
+
+                                <br>
+
+                                <strong>Critical:</strong>
+                                Emergency or serious issue
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ======================================
+                             DESCRIPTION
+                        ======================================= -->
+
+                        <div class="mb-4">
+
+                            <div class="d-flex justify-content-between">
+
+                                <label
+                                    for="description"
+                                    class="form-label fw-semibold"
+                                >
+
+                                    Complaint Description
+
+                                    <span class="text-danger">
+                                        *
+                                    </span>
+
+                                </label>
+
+                                <small
+                                    id="descriptionCounter"
+                                    class="text-muted"
+                                >
+                                    0 / 2000
+                                </small>
+
+                            </div>
+
+
+                            <textarea
+                                class="form-control"
+                                id="description"
+                                name="description"
+                                rows="7"
+                                maxlength="2000"
+                                placeholder="Describe your problem in detail..."
+                                required
+                            ></textarea>
+
+
+                            <div class="form-text">
+
+                                Mention the location, problem,
+                                date/time and other useful details.
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ======================================
+                             ATTACHMENT
+                        ======================================= -->
+
+                        <div class="mb-4">
+
+                            <label
+                                for="attachment"
+                                class="form-label fw-semibold"
+                            >
+
+                                Supporting Document / Image
+
+                                <span class="text-muted">
+                                    (Optional)
+                                </span>
+
+                            </label>
+
+
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="attachment"
+                                name="attachment"
+                                accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
+                            >
+
+
+                            <div class="form-text">
+
+                                Allowed:
+                                JPG, PNG, PDF, DOC, DOCX
+
+                                <br>
+
+                                Maximum size:
+                                5 MB
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ======================================
+                             AI INFORMATION
+                        ======================================= -->
+
+                        <div class="alert alert-primary">
+
+                            <div class="d-flex">
+
+                                <i
+                                    class="bi bi-stars fs-4 me-3"
+                                ></i>
+
+                                <div>
+
+                                    <strong>
+                                        Smart AI Assistance
+                                    </strong>
+
+                                    <p class="mb-0 mt-1">
+
+                                        The system can analyze your
+                                        complaint and help identify
+                                        the appropriate category,
+                                        priority and department.
+
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ======================================
+                             TERMS
+                        ======================================= -->
+
+                        <div class="form-check mb-4">
+
+                            <input
+                                class="form-check-input"
+                                type="checkbox"
+                                id="confirmDetails"
+                                required
+                            >
+
+                            <label
+                                class="form-check-label"
+                                for="confirmDetails"
+                            >
+
+                                I confirm that the information
+                                provided above is correct.
+
+                            </label>
+
+                        </div>
+
+
+                        <!-- ======================================
+                             BUTTONS
+                        ======================================= -->
+
+                        <div class="d-flex gap-2">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary px-4"
+                                id="submitComplaintBtn"
+                            >
+
+                                <i class="bi bi-send"></i>
+
+                                Submit Complaint
+
+                            </button>
+
+
+                            <button
+                                type="reset"
+                                class="btn btn-outline-secondary px-4"
+                                onclick="resetComplaintForm()"
+                            >
+
+                                <i class="bi bi-arrow-counterclockwise"></i>
+
+                                Reset
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================================
+                 SIDE INFORMATION
+            =================================================== -->
+
+            <div class="col-lg-4">
+
+
+                <!-- How It Works -->
+
+                <div class="dashboard-card mb-4">
+
+                    <h5 class="fw-bold mb-3">
+
+                        <i class="bi bi-diagram-3 text-primary"></i>
+
+                        Complaint Process
+
+                    </h5>
+
+
+                    <div class="portal-flow">
+
+
+                        <div class="flow-item">
+
+                            <span class="flow-number">
+                                1
+                            </span>
+
+                            <span>
+                                Submit Complaint
+                            </span>
+
+                        </div>
+
+
+                        <div class="flow-line"></div>
+
+
+                        <div class="flow-item">
+
+                            <span class="flow-number">
+                                2
+                            </span>
+
+                            <span>
+                                Review & Classification
+                            </span>
+
+                        </div>
+
+
+                        <div class="flow-line"></div>
+
+
+                        <div class="flow-item">
+
+                            <span class="flow-number">
+                                3
+                            </span>
+
+                            <span>
+                                Department Assignment
+                            </span>
+
+                        </div>
+
+
+                        <div class="flow-line"></div>
+
+
+                        <div class="flow-item">
+
+                            <span class="flow-number">
+                                4
+                            </span>
+
+                            <span>
+                                Action & Resolution
+                            </span>
+
+                        </div>
+
+
+                        <div class="flow-line"></div>
+
+
+                        <div class="flow-item">
+
+                            <span class="flow-number">
+                                5
+                            </span>
+
+                            <span>
+                                Student Feedback
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Tips -->
+
+                <div class="dashboard-card mb-4">
+
+                    <h5 class="fw-bold mb-3">
+
+                        <i class="bi bi-lightbulb text-warning"></i>
+
+                        Helpful Tips
+
+                    </h5>
+
+
+                    <ul class="text-muted ps-3">
+
+                        <li class="mb-2">
+                            Write a clear complaint title.
+                        </li>
+
+                        <li class="mb-2">
+                            Select the correct category.
+                        </li>
+
+                        <li class="mb-2">
+                            Explain the issue clearly.
+                        </li>
+
+                        <li class="mb-2">
+                            Mention the exact location.
+                        </li>
+
+                        <li class="mb-2">
+                            Select priority carefully.
+                        </li>
+
+                        <li>
+                            Upload evidence if required.
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+                <!-- Emergency -->
+
+                <div class="alert alert-warning">
+
+                    <h6 class="fw-bold">
+
+                        <i class="bi bi-exclamation-triangle"></i>
+
+                        Emergency Issue?
+
+                    </h6>
+
+                    <p class="small mb-0">
+
+                        For serious safety or emergency
+                        situations, contact the college
+                        administration directly instead of
+                        waiting for the portal response.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ==================================================
+     FOOTER
+=================================================== -->
+
+<footer class="bg-dark text-white py-3 mt-4">
+
+    <div class="container text-center">
+
+        <small>
+
+            © 2026 R. C. Patel College of Engineering
+            and Polytechnic
+
+            | Smart Grievance Management System
+
+        </small>
+
+    </div>
+
+</footer>
+
+
+<!-- Bootstrap JS -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- Common JS -->
+
+<script
+    src="{{ url_for('static', filename='js/script.js') }}">
+</script>
+
+
+<!-- Complaint JS -->
+
+<script
+    src="{{ url_for('static', filename='js/complaint.js') }}">
+</script>
+
+
+<script>
+
+// ============================================
+// DESCRIPTION CHARACTER COUNTER
+// ============================================
+
+const description =
+    document.getElementById("description");
+
+const counter =
+    document.getElementById("descriptionCounter");
+
+
+if (description && counter) {
+
+    description.addEventListener(
+        "input",
+        function () {
+
+            counter.innerText =
+                description.value.length + " / 2000";
+
+        }
+    );
+
+}
+
+
+// ============================================
+// COMPLAINT FORM VALIDATION
+// ============================================
+
+function validateComplaintForm() {
+
+    const title =
+        document.getElementById("title").value.trim();
+
+    const description =
+        document.getElementById("description").value.trim();
+
+    const category =
+        document.getElementById("category").value;
+
+    const priority =
+        document.getElementById("priority").value;
+
+
+    if (title.length < 5) {
+
+        alert(
+            "Complaint title must contain at least 5 characters."
+        );
+
+        return false;
+
+    }
+
+
+    if (!category) {
+
+        alert(
+            "Please select a complaint category."
+        );
+
+        return false;
+
+    }
+
+
+    if (!priority) {
+
+        alert(
+            "Please select complaint priority."
+        );
+
+        return false;
+
+    }
+
+
+    if (description.length < 20) {
+
+        alert(
+            "Please provide a more detailed complaint description."
+        );
+
+        return false;
+
+    }
+
+
+    // File validation
+
+    if (
+        !validateFileSize(
+            "attachment",
+            5
+        )
+    ) {
+
+        return false;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "submitComplaintBtn"
+        );
+
+
+    showLoading(
+        button,
+        "Submitting..."
+    );
+
+
+    return true;
+
+}
+
+
+// ============================================
+// RESET FORM
+// ============================================
+
+function resetComplaintForm() {
+
+    setTimeout(function () {
+
+        if (counter) {
+
+            counter.innerText =
+                "0 / 2000";
+
+        }
+
+    }, 50);
+
+}
+
+</script>
+
+
+</body>
+
+</html>
