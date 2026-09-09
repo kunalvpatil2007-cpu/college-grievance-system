@@ -8,6 +8,14 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app = Flask(
+    import os
+
+print("APP DIRECTORY:", os.path.dirname(os.path.abspath(__file__)))
+print("TEMPLATE FOLDER:", app.template_folder)
+print("TEMPLATES EXIST:", os.path.exists(app.template_folder))
+print("INDEX EXIST:", os.path.exists(
+    os.path.join(app.template_folder, "index.html")
+))
     __name__,
     template_folder=os.path.join(BASE_DIR, "templates"),
     static_folder=os.path.join(BASE_DIR, "static")
