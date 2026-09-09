@@ -1,1 +1,503 @@
+/* =========================================================
+   R. C. PATEL COLLEGE
+   SMART GRIEVANCE MANAGEMENT SYSTEM
+   Main Website Styles
+========================================================= */
 
+
+/* =========================================================
+   GENERAL
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #ffffff;
+    color: #212529;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar {
+    padding: 12px 0;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.12);
+}
+
+.navbar-brand {
+    font-size: 18px;
+    line-height: 1.2;
+}
+
+.navbar-brand small {
+    font-size: 11px;
+    opacity: 0.9;
+}
+
+.navbar .nav-link {
+    margin: 0 5px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.navbar .nav-link:hover {
+    color: #ffc107 !important;
+}
+
+.navbar .btn {
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+
+/* =========================================================
+   COLLEGE LOGO
+========================================================= */
+
+.college-logo {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+    color: #0d6efd;
+
+    border-radius: 50%;
+
+    font-weight: 800;
+    font-size: 15px;
+
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+
+/* =========================================================
+   HERO SECTION
+========================================================= */
+
+.hero-section {
+    min-height: 100vh;
+
+    padding-top: 75px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0d6efd 0%,
+            #084298 50%,
+            #052c65 100%
+        );
+
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* Decorative circles */
+
+.hero-section::before {
+    content: "";
+
+    position: absolute;
+
+    width: 400px;
+    height: 400px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.05);
+
+    top: -150px;
+    right: -100px;
+}
+
+.hero-section::after {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.04);
+
+    bottom: -100px;
+    left: -100px;
+}
+
+
+/* Hero heading */
+
+.hero-section h1 {
+    letter-spacing: -1px;
+    line-height: 1.15;
+}
+
+.hero-section .lead {
+    max-width: 650px;
+    opacity: 0.9;
+}
+
+
+/* Hero buttons */
+
+.hero-section .btn {
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+}
+
+.hero-section .btn:hover {
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   HERO CARD
+========================================================= */
+
+.hero-card {
+    background: rgba(255, 255, 255, 0.97);
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.25);
+
+    animation: floating 4s ease-in-out infinite;
+}
+
+.hero-card h3 {
+    color: #0d6efd;
+    font-weight: 700;
+}
+
+.hero-card p {
+    color: #6c757d;
+}
+
+.hero-card hr {
+    margin: 25px 0;
+}
+
+.hero-card .row i {
+    color: #0d6efd;
+}
+
+.hero-card .row small {
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+
+/* Hero Icon */
+
+.hero-icon {
+    width: 85px;
+    height: 85px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e7f1ff;
+    color: #0d6efd;
+
+    font-size: 40px;
+}
+
+
+/* Floating animation */
+
+@keyframes floating {
+
+    0% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   FEATURES SECTION
+========================================================= */
+
+#features {
+    background: #ffffff;
+}
+
+.feature-card {
+    height: 100%;
+
+    padding: 30px;
+
+    background: #ffffff;
+
+    border: 1px solid #e9ecef;
+
+    border-radius: 15px;
+
+    transition: all 0.3s ease;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.05);
+}
+
+.feature-card:hover {
+
+    transform: translateY(-8px);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.12);
+
+    border-color: #0d6efd;
+}
+
+.feature-card h4 {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.feature-card p {
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+
+/* Feature Icon */
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #e7f1ff;
+
+    color: #0d6efd;
+
+    font-size: 28px;
+}
+
+
+/* =========================================================
+   SECTION HEADINGS
+========================================================= */
+
+section h2 {
+    font-size: 36px;
+    font-weight: 700;
+}
+
+section span.fw-semibold {
+    letter-spacing: 1px;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   HOW IT WORKS
+========================================================= */
+
+#about {
+    background: #f8f9fa !important;
+}
+
+.step-number {
+
+    width: 70px;
+    height: 70px;
+
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #0d6efd;
+    color: #ffffff;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    box-shadow:
+        0 8px 20px rgba(13, 110, 253, 0.25);
+}
+
+#about h5 {
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    background: #101828 !important;
+}
+
+footer h5 {
+    font-weight: 700;
+}
+
+footer hr {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+footer .btn {
+    border-radius: 8px;
+}
+
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+.badge {
+    border-radius: 30px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================================
+   GENERAL BUTTONS
+========================================================= */
+
+.btn {
+    transition: all 0.25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   RESPONSIVE DESIGN
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .navbar .nav-link {
+        margin: 5px 0;
+    }
+
+    .navbar .btn {
+        margin-top: 10px;
+    }
+
+    .hero-section {
+        text-align: center;
+    }
+
+    .hero-section .lead {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-card {
+        max-width: 500px;
+        margin: auto;
+    }
+}
+
+
+@media (max-width: 576px) {
+
+    .hero-section {
+        padding-top: 100px;
+        padding-bottom: 50px;
+    }
+
+    .hero-section h1 {
+        font-size: 38px;
+    }
+
+    .hero-section .lead {
+        font-size: 16px;
+    }
+
+    .hero-section .btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .hero-card {
+        padding: 25px;
+    }
+
+    section h2 {
+        font-size: 30px;
+    }
+
+    .feature-card {
+        padding: 25px;
+    }
+
+    footer {
+        text-align: center;
+    }
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0d6efd;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #084298;
+}
