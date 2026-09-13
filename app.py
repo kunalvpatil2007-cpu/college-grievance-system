@@ -26,10 +26,13 @@ print(
 
 app.secret_key = "rc_patel_grievance_secret_key"
 
-MYSQL_HOST = "localhost"
-MYSQL_USER = "root"
+
+
+MYSQL_HOST = os.getenv("DB_HOST")
+MYSQL_USER = os.getenv("DB_USER", "root")
 MYSQL_PASSWORD = "kunal"
-MYSQL_DATABASE = "college_grievance"
+MYSQL_DATABASE = os.getenv("DB_NAME", "railway")
+MYSQL_PORT = int(os.getenv("DB_PORT", "3306"))
 
 DEPARTMENTS = [
     "Computer Engineering",
@@ -45,11 +48,12 @@ def get_db():
     try:
         return mysql.connector.connect(
             host=MYSQL_HOST,
+            port=MYSQL_PORT,
             user=MYSQL_USER,
             password=MYSQL_PASSWORD,
             database=MYSQL_DATABASE
         )
-    except Error as e:
+    except Exception as e:
         print("Database Error:", e)
         return None
 
