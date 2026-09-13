@@ -22,10 +22,7 @@ print(
         os.path.join(app.template_folder, "index.html")
     )
 )
-    __name__,
-    template_folder=os.path.join(BASE_DIR, "templates"),
-    static_folder=os.path.join(BASE_DIR, "static")
-)
+
 app.secret_key = "rc_patel_grievance_secret_key"
 
 MYSQL_HOST = "localhost"
