@@ -28,7 +28,7 @@ app.secret_key = "rc_patel_grievance_secret_key"
 
 
 
-MYSQL_HOST = os.getenv("DB_HOST")
+MYSQL_HOST = os.getenv("DB_HOST","mysqpl.railway.internal")
 MYSQL_USER = os.getenv("DB_USER", "root")
 MYSQL_PASSWORD = "kunal"
 MYSQL_DATABASE = os.getenv("DB_NAME", "railway")
