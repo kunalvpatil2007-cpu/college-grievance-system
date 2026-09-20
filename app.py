@@ -30,7 +30,7 @@ app.secret_key = "rc_patel_grievance_secret_key"
 
 MYSQL_HOST = os.getenv("DB_HOST")
 MYSQL_USER = os.getenv("DB_USER", "root")
-MYSQL_PASSWORD = "zsCnKRLrQKWhXTsVtXXsalbEKikmyxRL"
+MYSQL_PASSWORD = "kunal"
 MYSQL_DATABASE = os.getenv("DB_NAME", "railway")
 MYSQL_PORT = int(os.getenv("DB_PORT", "3306"))
 
